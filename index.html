@@ -1,0 +1,96 @@
+<html>
+<head>
+ <title>TetrisBot</title>
+ <style>
+	 body {
+		background-color: #272821;
+		min-width: 25em;
+	}
+	.text {
+		color: #706C5A;
+		font-family: Inconsolata, Fira Sans, serif;
+		font-size: 20px;
+	}
+	#headTitle {
+		color: darkgoldenrod;
+		padding-left: 4em;
+		border-bottom: medium dashed steelblue;
+		text-decoration: underline darkolivegreen;
+		max-width: 51em;
+		min-width: 26em;
+	}
+	#title1 {
+		font-size: 2em;
+		margin: .67em 0
+	}
+	#SwitchButton {
+		font-size: 1em;/*0.35em;*/
+		/*writing-mode: vertical-rl;
+		text-orientation: mixed;*/
+		color: red;
+		background-color: brown;
+		border-radius: 30px;
+		cursor: pointer;
+	}
+	#generalStats {
+		margin-bottom: 1em;
+		border-bottom: medium dashed midnightblue;
+		padding-bottom: 5px;
+		max-width: 55em;
+		min-width: 30em;
+		height: 3.5em;
+		text-align: center;
+	}
+	#output {
+		float: left;
+		margin-left: 10%;
+		min-width: 10em;
+		margin-bottom: 1em;
+	}
+	#score {
+		float: left;
+		margin-left: 10%;
+		max-width: 20%;
+		min-width: 10em;
+		margin-bottom: 0.5em;
+	}
+</style>
+</head>
+<body>
+	<div id="headTitle" class="text"> <span id="title1">This Is A Self-Training NN Powered Tetris AI  ||  </span> <span id = "SwitchButton">Toggle AI</span></div>
+	<div id="generalStats" class="text"> <h2>--Javascript Loading--</h2> </div>
+	<div>
+	<div id="score" class="text"></div>
+	<div id="output" class="text"></div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs/dist/tf.min.js"></script>
+	<script src="/TetrisBot.js"></script>
+	</script>
+	<script>
+		let hasSwitched = true;
+		let switchButton = document.getElementById('SwitchButton');
+		switchButton.addEventListener('click', switchAI);
+		function switchAI(){
+			if (hasSwitched) { 
+				mode = !mode;
+			}
+			hasSwitched = false;
+		}
+		document.addEventListener('keydown', movePiece);
+		function movePiece(){
+			key_move = true;
+			let keyName = event.key;
+			//console.log(keyName);
+			if (keyName === "ArrowUp" || keyName === "w") { key_vector[0] = true; }
+			if (keyName === "ArrowLeft" || keyName === "a") { key_vector[1] = true; }
+			if (keyName === "ArrowRight" || keyName === "d") { key_vector[2] = true; }
+			if (keyName === "ArrowDown" || keyName === "s") { key_vector[3] = true; }
+		}
+		
+		mainLoopGD()
+		
+		window.alert("This site hosts an AI that plays Tetris. If you would like to give the AI some training data yourself: Toggle the AI in the upper right corner, and clear a few rows.\rIt will start making noteworthy progress after a few hundred games or so.");
+		
+	</script>
+</body>
+</html>
